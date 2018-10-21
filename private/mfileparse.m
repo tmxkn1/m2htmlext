@@ -49,7 +49,7 @@ while 1
 	it = it + 1;
 	tline = deblank(fliplr(deblank(fliplr(tline))));
 	%- Synopsis line
-	if ~isempty(strmatch('function',tline))
+	if ~isempty(strmatch('function',tline)) || ~isempty(strmatch('classdef',tline))
 		s.synopsis = tline;
 		if ~isempty(strmatch('...',fliplr(tline)))
 			flagsynopcont = 1;

@@ -957,7 +957,7 @@ end
 %- List of Matlab keywords (output from iskeyword)
 matlabKeywords = {'break', 'case', 'catch', 'continue', 'elseif', 'else', ...
 				  'end', 'for', 'function', 'global', 'if', 'otherwise', ...
-				  'persistent', 'return', 'switch', 'try', 'while'};
+				  'persistent', 'return', 'switch', 'try', 'while','classdef'};
                   %'keyboard', 'pause', 'eps', 'NaN', 'Inf'
 
 tpl_mfile = 'mfile.tpl';
@@ -1082,7 +1082,7 @@ for i=1:length(mdir)
 				if ~ischar(tline), break, end
 				tline = entity(fliplr(deblank(fliplr(tline))));
 				%- Synopsis line
-				if ~isempty(strmatch('function',tline))
+				if ~isempty(strmatch('function',tline)) || ~isempty(strmatch('classdef',tline))
 					if ~isempty(strmatch('...',fliplr(deblank(tline))))
 						flagsynopcont = 1;
 					end
