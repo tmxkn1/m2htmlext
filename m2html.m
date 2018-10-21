@@ -21,6 +21,8 @@ function m2html(varargin)
 %        characters [ 0 ... {4} ... n ]
 %    o globalHypertextLinks - Hypertext links among separate Matlab 
 %        directories [ on | {off} ]
+%    o globalSeeAlsoLinks - Hypertext links for See Also among separate
+%        Matlab directories [ on | {off} ]
 %    o todo - Create a TODO list in each directory summarizing all the
 %        '% TODO %' lines found in Matlab code [ on | {off}]
 %    o graph - Compute a dependency graph using GraphViz [ on | {off}]
@@ -111,7 +113,8 @@ function m2html(varargin)
 t0 = clock; % for statistics
 msgInvalidPair = 'Bad value for argument: ''%s''';
 
-options = struct('verbose', 1,...
+options = struct('globalSeeAlsoLinks', 0,...
+                 'verbose', 1,...
 				 'mFiles', {{'.'}},...
 				 'htmlDir', 'doc',...
 				 'recursive', 0,...
@@ -155,6 +158,14 @@ for i=1:2:length(paramlist)
 		error(['Ambiguous parameter: ''' pname '''.']);
 	end
 	switch(optionsnames{ind})
+        case 'globalseealsolinks'
+            if strcmpi(pvalue,'on')
+                options.seeAlsoGlobal = 1;
+            elseif strcmpi(pvalue,'off')
+                options.seeAlsoGlobal = 0;
+            else
+                error(sprintf(msgInvalidPair,pname));
+            end
 		case 'verbose'
 			if strcmpi(pvalue,'on')
 				options.verbose = 1;
@@ -1080,9 +1091,14 @@ for i=1:length(mdir)
 					%- Hypertext links on the "See also" line
 					ind = findstr(lower(tline),'see also');
 					if ~isempty(ind) | flag_seealso
-						%- "See also" only in files in the same directory
-						indsamedir = find(strcmp(mdirs{j},mdirs));
-						hrefnames = {names{indsamedir}};
+                        if options.seeAlsoGlobal
+                            indsamedir = 1:numel(mdirs);
+                            hrefnames = names;
+                        else
+                            %- "See also" only in files in the same directory
+                            indsamedir = find(strcmp(mdirs{j},mdirs));
+                            hrefnames = {names{indsamedir}};
+                        end
 						r = deblank(tline);
 						flag_seealso = 1; %(r(end) == ',');
 						tline = '';
@@ -1093,9 +1109,15 @@ for i=1:length(mdir)
 							ii = strcmpi(hrefnames,t);
 							if any(ii)
 								jj = find(ii);
-								tline = [tline sprintf(tpl_mfile_code,...
-									[hrefnames{jj(1)} options.extension],...
-									synopsis{indsamedir(jj(1))},t)];
+                                if strcmp(mdirs{j},mdirs{indsamedir(jj(1))})
+                                    tline = [tline sprintf(tpl_mfile_code,...
+                                        [hrefnames{jj(1)} options.extension],...
+                                        synopsis{indsamedir(jj(1))},t)];
+                                else
+                                    tline = [tline sprintf(tpl_mfile_code,...
+                                        fullurl(backtomaster(mdirs{j}), mdirs{indsamedir(jj(1))}, [hrefnames{jj(1)} options.extension]),...
+                                        synopsis{indsamedir(jj(1))},t)];
+                                end
 							else
 								tline = [tline t];
 							end

@@ -56,8 +56,6 @@
    + prevent or display a warning when an html matlab file overwrite the 'index' file
    o explain in FAQ what to do when a warning index file overwritten appears...
    o creating a ToDo list including all the directories rather than only one by directory
-   o See Also functions are with hypertext only if in the same directory : should be hypertexted
-     when 'global' is on
    o Add an option to automatically generate a Contents.m file in M-files directory
    o ability to parse template headers as proposed by Denis Gilbert ?
    o See if <setdiff.m> or <setxor.m> or <unique.m> or <intersect.m> might be useful for 'search'
