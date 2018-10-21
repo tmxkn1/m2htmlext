@@ -51,8 +51,9 @@ function m2html(varargin)
 %
 %  See also MWIZARD, MDOT, TEMPLATE.
 
-%  Copyright (C) 2005 Guillaume Flandin <Guillaume@artefact.tk>
-%  $Revision: 1.5 $Date: 2005/05/01 16:15:30 $
+%  Copyright (C) 2005 Guillaume Flandin <Guillaume@artefact.tk>, 
+% 				 2018 Zhengyi Jiang
+%  $Revision: 1.6 $Date: 2018/10/21 17:24:30 $
 
 %  This program is free software; you can redistribute it and/or
 %  modify it under the terms of the GNU General Public License
