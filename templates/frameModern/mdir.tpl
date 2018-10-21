@@ -55,6 +55,6 @@
 </ul>
 <!-- END todolist -->
 
-<hr><address>Documentation for Software Part Coded in MATLAB.</address>
+<hr><address>Documentation for MATLAB code.</address>
 </body>
 </html>

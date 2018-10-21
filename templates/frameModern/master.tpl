@@ -39,6 +39,6 @@
 <li><a href="{LGRAPH}" target="function">View the Graph</a></li>
 </ul>
 <!-- END graph -->
-<hr><address>Documentation for Software Part Coded in MATLAB.</address>
+<hr><address>Documentation for MATLAB code.</address>
 </body>
 </html>
