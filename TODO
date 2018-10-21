@@ -3,7 +3,9 @@
  
  Wish list:
  ==========
-   o special handling of Matlab classes and private directories
+   o special handling of private directories
+   o improved handling of Matlab classes, such as adding a special area dedicated to classes in 
+     index, unique icon, namespace, properties and functions lists with discriptions, etc.
    o special handling of Java code
    o special handling of MEX files (C/C++ or Fortran) and P-files
    o special handling of Simulink (*.mdl) files (see load_system,open_system,get/set_param)
